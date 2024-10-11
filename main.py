@@ -124,7 +124,7 @@ if __name__ == "__main__":
 
 
 
-# https://data.opendatasoft.com/explore/dataset/geonames-postal-code%40public/table/
+
 
 
 
