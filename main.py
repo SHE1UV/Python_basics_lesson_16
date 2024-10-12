@@ -6,7 +6,6 @@ import argparse
 
 
 def get_coordinates(city_name, country_code):
-    """Получает координаты города по названию и коду страны."""
     url = "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-postal-code@public/records"
 
     params = {
@@ -43,7 +42,6 @@ def get_coordinates(city_name, country_code):
 
 
 def get_weather_data(latitude, longitude, start_date, end_date):
-    """Получает погодные данные по координатам и указанным датам."""
     cache_session = requests_cache.CachedSession('.cache', expire_after=-1)
     url = "https://archive-api.open-meteo.com/v1/archive"
 
@@ -78,7 +76,6 @@ def get_weather_data(latitude, longitude, start_date, end_date):
 
 
 def plot_temperature(weather_df, city_name):
-    """Отрисовывает график температуры по данным DataFrame."""
     if weather_df is None or weather_df.empty:
         print("Нет данных для построения графика.")
         return
