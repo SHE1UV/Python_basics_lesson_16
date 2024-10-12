@@ -14,14 +14,15 @@
 ## Установка
 
 1. Убедитесь, что у вас установлен Python версии 3.6 или выше.
-2. Клонируйте репозиторий:
+2. Для работы с библиотекой `matplotlib==3.7.2` в Windows может потребоваться установка Microsoft C++ Build Tools версии 14 и выше. Установите Microsoft C++ Build Tools 14+ с [сайта](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (выберите Desktop development with C++).
+3. Клонируйте репозиторий:
 
    ```bash
    git clone https://github.com/ваш_пользователь/название_проекта.git
    cd название_проекта
    ```
 
-3. Установите необходимые зависимости:
+4. Установите необходимые зависимости:
 
     ```bash
     pip install -r requirements.txt
