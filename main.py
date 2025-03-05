@@ -17,13 +17,12 @@ def get_coordinates(city_name, country_code):
     try:
         response = requests.get(url, params=params)
         response.raise_for_status()  
-        data = response.json()
 
-        if data.get('total_count', 0) == 0:
+        if response.json().get('total_count', 0) == 0:
             print(f"Город '{city_name}' не найден.")
             return None, None
 
-        results = data.get('results', [])
+        results = response.json().get('results', [])
         if results:
             latitude = results[0].get('latitude')
             longitude = results[0].get('longitude')
@@ -41,7 +40,7 @@ def get_coordinates(city_name, country_code):
     return None, None
 
 
-def get_weather_data(latitude, longitude, start_date, end_date):
+def get_weather_info(latitude, longitude, start_date, end_date):
     cache_session = requests_cache.CachedSession('.cache', expire_after=-1)
     url = "https://archive-api.open-meteo.com/v1/archive"
 
@@ -57,11 +56,10 @@ def get_weather_data(latitude, longitude, start_date, end_date):
     try:
         response = cache_session.get(url, params=params)
         response.raise_for_status()
-        data = response.json()
 
-        if 'hourly' in data and 'temperature_2m' in data['hourly']:
-            dates = data['hourly']['time']
-            temperatures = data['hourly']['temperature_2m']
+        if 'hourly' in response.json() and 'temperature_2m' in response.json()['hourly']:
+            dates = response.json()['hourly']['time']
+            temperatures = response.json()['hourly']['temperature_2m']
 
             weather_df = pd.DataFrame({'Date': pd.to_datetime(dates), 'Temperature': temperatures})
             return weather_df
@@ -111,7 +109,7 @@ def main():
         print(f"Не удалось получить координаты для города '{city_name}'")
         return
 
-    weather_df = get_weather_data(latitude, longitude, start_date, end_date)
+    weather_df = get_weather_info(latitude, longitude, start_date, end_date)
     if weather_df is not None:
         plot_temperature(weather_df, city_name)
 
